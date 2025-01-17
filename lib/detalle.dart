@@ -54,7 +54,7 @@ class _detalleAppState extends State<detalleApp> {
 
   Text personajeSiguiente() {
     texto = const Text(
-      "Hola",
+      "Holaa",
     );
     return texto;
   }
