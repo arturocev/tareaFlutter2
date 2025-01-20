@@ -14,35 +14,40 @@ class _listadoAppState extends State<listadoApp> {
 
   late List<String> personajes;
   late int counter;
+  late List<Map<String,dynamic>> personajesMap;
+  late int counterPersonaje;
 
   @override
   void initState()
   {
     personajes = [];
+    personajesMap = [];
     counter = 0;
+    counterPersonaje = 0;
     listadoPersonajes();
     super.initState();
   }
 
   void listadoPersonajes() async {
-    while (counter < 100) {
       counter++;
-      final url = Uri.parse("https://www.anapioficeandfire.com/api/characters/$counter");
-      final response = await http.get(url);
+      while (counterPersonaje <= personajesMap.length)
+      {
+        final url = Uri.parse("https://www.anapioficeandfire.com/api/characters?page=$counter&pageSize=10");
+        final response = await http.get(url);
+        
+        if (response.statusCode == 200) {
+          final json = response.body;
+          personajesMap = List<Map<String, dynamic>>.from(jsonDecode(json));
 
-      if (response.statusCode == 200) {
-        final json = response.body;
-        Personaje personaje = Personaje.fromJson(jsonDecode(json));
-        if (personaje.name.isEmpty) {
-          personajes.add("Personaje $counter");
+          personajes.add(personajesMap[counterPersonaje]["name"]); 
         }
-        else {
-          personajes.add(personaje.name);
+        else
+        {
+          print("Respuesta fallida");
         }
-
+        counterPersonaje++;
       }
-    }
-    setState(() {});
+      print(personajes);
   }
 
   @override

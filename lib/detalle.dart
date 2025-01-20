@@ -25,8 +25,8 @@ class _detalleAppState extends State<detalleApp> {
     idPersonaje = 1;
     nombrePersonaje = "";
     generoPersonaje = "";
-    texto = const Text("0");
     personajeSiguiente();
+    texto = const Text("0");
     super.initState();
   }
 
@@ -50,6 +50,7 @@ class _detalleAppState extends State<detalleApp> {
     }
     texto = Text("$nombrePersonaje: $generoPersonaje");
     idPersonaje++;
+    setState(() {});
   }
 
   @override
@@ -66,9 +67,8 @@ class _detalleAppState extends State<detalleApp> {
         FloatingActionButton(
           onPressed: () {
             personajeSiguiente();
-            setState(() {});
           },
-          child: Icon(Icons.arrow_forward_sharp),
+          child: const Icon(Icons.arrow_forward_sharp),
         )
         ],
       ),
