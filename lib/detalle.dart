@@ -26,11 +26,11 @@ class _detalleAppState extends State<detalleApp> {
     nombrePersonaje = "";
     generoPersonaje = "";
     texto = const Text("0");
-    primerPersonaje();
+    personajeSiguiente();
     super.initState();
   }
 
-  void primerPersonaje() async
+  void personajeSiguiente() async
   {
     final url = Uri.parse("https://www.anapioficeandfire.com/api/characters/$idPersonaje");
     final response = await http.get(url);
@@ -49,14 +49,7 @@ class _detalleAppState extends State<detalleApp> {
       }
     }
     texto = Text("$nombrePersonaje: $generoPersonaje");
-    setState(() {});
-  }
-
-  Text personajeSiguiente() {
-    texto = const Text(
-      "Holaa",
-    );
-    return texto;
+    idPersonaje++;
   }
 
   @override
@@ -66,14 +59,17 @@ class _detalleAppState extends State<detalleApp> {
         children: [
           Center(
               child: Padding(
-                padding: const EdgeInsets.only(top: 300),
+                padding: const EdgeInsets.only(top: 300, bottom: 100),
                 child: texto,
               ),
           ),
         FloatingActionButton(
-          onPressed: personajeSiguiente,
-          child: const Icon(Icons.arrow_circle_right_rounded),
-        ),
+          onPressed: () {
+            personajeSiguiente();
+            setState(() {});
+          },
+          child: Icon(Icons.arrow_forward_sharp),
+        )
         ],
       ),
     );
