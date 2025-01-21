@@ -22,17 +22,24 @@ class _listadoAppState extends State<listadoApp> {
   {
     personajes = [];
     personajesMap = [];
-    counter = 0;
+    counter = 1;
     counterPersonaje = 0;
-    listadoPersonajes();
+    listadoPersonajes(true);
     super.initState();
   }
 
-  void listadoPersonajes() async {
+
+  void listadoPersonajes(bool siguiente) async {
+    if (siguiente == true) {
       counter++;
-      while (counterPersonaje <= personajesMap.length)
+    }
+    else {
+      counter--;
+    } 
+      personajes = [];
+      while (counterPersonaje <= 10)
       {
-        final url = Uri.parse("https://www.anapioficeandfire.com/api/characters?page=$counter&pageSize=10");
+        final url = Uri.parse("https://www.anapioficeandfire.com/api/characters?page=$counter&pageSize=11");
         final response = await http.get(url);
         
         if (response.statusCode == 200) {
@@ -47,29 +54,50 @@ class _listadoAppState extends State<listadoApp> {
         }
         counterPersonaje++;
       }
-      print(personajes);
+      setState(() {});
+      counterPersonaje = 0;
   }
 
-  @override
+@override
   Widget build(BuildContext context) {
-    return ListView.separated(
-        padding: const EdgeInsets.all(8),
-        itemCount: personajes.length,
-        itemBuilder: (BuildContext context, int index) {
-        return SizedBox(
-          height: 50,
-          child: Center(child: 
-          Text(
-            personajes[index],
-            style: const TextStyle(
-              fontSize: 20,
-              color: Colors.black
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          Padding(padding: 
+          const EdgeInsets.only(right: 500),
+          child: FloatingActionButton(
+              onPressed: () {
+                listadoPersonajes(true);
+              },
+              child: const Icon(Icons.arrow_forward_ios_sharp),
             ),
-            ),
-            ),
-         );
-        },
-        separatorBuilder: (BuildContext context, int index) => const Divider(),
-      );
+          ),
+          Padding(padding: 
+          const EdgeInsets.only(right: 300
+          ),
+          child: FloatingActionButton(onPressed: () {
+            listadoPersonajes(false);
+          } ,
+          child: const Icon(Icons.arrow_back_ios_new_rounded),
+          ),
+          ),
+        ],
+      ),
+      body:  ListView.builder(
+            itemCount: personajes.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Text(
+                personajes[index],
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+              );
+          },  
+          ),
+    );
   }
 }
+
+
+
+

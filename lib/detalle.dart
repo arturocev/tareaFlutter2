@@ -20,6 +20,13 @@ class _detalleAppState extends State<detalleApp> {
   late String generoPersonaje;
   late Text texto;
 
+  static const List<(Color?, Color? background, ShapeBorder?)> customizations =
+      <(Color?, Color?, ShapeBorder?)>[
+    (null, null, null),
+    (Colors.red, null, null),
+  ];
+  int index = 0; 
+
   @override
   void initState() {
     idPersonaje = 1;
@@ -64,12 +71,25 @@ class _detalleAppState extends State<detalleApp> {
                 child: texto,
               ),
           ),
-        FloatingActionButton(
+          Padding(padding: const EdgeInsets.only(bottom: 20),
+          child: FloatingActionButton(
           onPressed: () {
             personajeSiguiente();
+            setState(() {
+              index = 0 % customizations.length;
+            });
           },
           child: const Icon(Icons.arrow_forward_sharp),
-        )
+        ),
+        ),
+        FloatingActionButton(onPressed: () {
+          setState(() {
+            index = (index + 1) % customizations.length;
+          });
+        },
+        foregroundColor: customizations[index].$1,
+        child: Icon(Icons.favorite),
+        ),
         ],
       ),
     );
