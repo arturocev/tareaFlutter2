@@ -73,9 +73,13 @@ class _detalleAppState extends State<detalleApp> {
         nombrePersonaje = personaje.name;
       }
     }
+    if (siNo == true) {
+      idPersonaje++;
+    } else {
+      idPersonaje--;
+    }
     esFavorito();
     texto = Text("$nombrePersonaje: $generoPersonaje");
-    idPersonaje++;
     setState(() {});
   }
 
@@ -93,10 +97,17 @@ class _detalleAppState extends State<detalleApp> {
           Padding(padding: const EdgeInsets.only(bottom: 20),
           child: FloatingActionButton(
           onPressed: () {
+            siNo = true;
             personajeSiguiente();
           },
           child: const Icon(Icons.arrow_forward_sharp),
         ),
+        ),
+        FloatingActionButton(onPressed: () {
+          siNo = false;
+          personajeSiguiente();
+        },
+        child: const Icon(Icons.arrow_back_sharp),
         ),
         FloatingActionButton(onPressed: () {
           if (index == 0) {
@@ -109,7 +120,7 @@ class _detalleAppState extends State<detalleApp> {
           });
         },
         foregroundColor: customizations[index].$1,
-        child: Icon(Icons.favorite),
+        child: const Icon(Icons.favorite),
         ),
         ],
       ),
