@@ -52,7 +52,6 @@ class _detalleAppState extends State<detalleApp> {
       }
     }
     siNo = false;
-    print(Listafavoritos.personajesFavoritos);
     setState(() {});
   }
 

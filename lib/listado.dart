@@ -82,7 +82,8 @@ class _listadoAppState extends State<listadoApp> {
           ),
         ],
       ),
-      body:  ListView.builder(
+      body: Center(
+            child: ListView.builder(
             itemCount: personajes.length,
             itemBuilder: (BuildContext context, int index) {
               return Text(
@@ -93,7 +94,8 @@ class _listadoAppState extends State<listadoApp> {
               );
           },  
           ),
-    );
+          ),
+      );
   }
 }
 

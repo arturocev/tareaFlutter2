@@ -58,8 +58,10 @@ class _destacadoAppState extends State<destacadoApp> {
     return Scaffold(
       body: Column(
         children: [
+          Center(
+            child: 
           Padding(
-          padding: const EdgeInsets.all(200),
+          padding: const EdgeInsets.only(top: 300),
           child: personajeTexto.isEmpty ? 
           const CircularProgressIndicator(): 
           Text(
@@ -70,6 +72,7 @@ class _destacadoAppState extends State<destacadoApp> {
           ),
         ),
         ),
+          ),
         personajeTexto.isEmpty ?
         const CircularProgressIndicator(): icono
         ],
