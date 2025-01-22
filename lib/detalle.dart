@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:tarea_flutter/listaFavoritos.dart';
 import 'package:tarea_flutter/personaje.dart';
 
 class detalleApp extends StatefulWidget {
@@ -19,6 +20,7 @@ class _detalleAppState extends State<detalleApp> {
   late String nombrePersonaje;
   late String generoPersonaje;
   late Text texto;
+  late bool siNo;
 
   static const List<(Color?, Color? background, ShapeBorder?)> customizations =
       <(Color?, Color?, ShapeBorder?)>[
@@ -32,9 +34,26 @@ class _detalleAppState extends State<detalleApp> {
     idPersonaje = 1;
     nombrePersonaje = "";
     generoPersonaje = "";
+    siNo = false;
     personajeSiguiente();
     texto = const Text("0");
     super.initState();
+  }
+
+  void esFavorito() {
+    siNo = false;
+    for (var i in Listafavoritos.personajesFavoritos) {
+      if (nombrePersonaje == i) {
+        index = 1 % customizations.length;
+        siNo = true;
+      }
+      else if (nombrePersonaje != i && siNo == false) {
+        index = 0 % customizations.length;
+      }
+    }
+    siNo = false;
+    print(Listafavoritos.personajesFavoritos);
+    setState(() {});
   }
 
   void personajeSiguiente() async
@@ -55,6 +74,7 @@ class _detalleAppState extends State<detalleApp> {
         nombrePersonaje = personaje.name;
       }
     }
+    esFavorito();
     texto = Text("$nombrePersonaje: $generoPersonaje");
     idPersonaje++;
     setState(() {});
@@ -75,14 +95,16 @@ class _detalleAppState extends State<detalleApp> {
           child: FloatingActionButton(
           onPressed: () {
             personajeSiguiente();
-            setState(() {
-              index = 0 % customizations.length;
-            });
           },
           child: const Icon(Icons.arrow_forward_sharp),
         ),
         ),
         FloatingActionButton(onPressed: () {
+          if (index == 0) {
+            Listafavoritos.personajesFavoritos.add(nombrePersonaje);
+          } else {
+            Listafavoritos.personajesFavoritos.remove(nombrePersonaje);
+          }
           setState(() {
             index = (index + 1) % customizations.length;
           });

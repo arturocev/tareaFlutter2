@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:tarea_flutter/personaje.dart';
 
 class listadoApp extends StatefulWidget {
   const listadoApp({super.key});
