@@ -101,7 +101,7 @@ class _destacadoAppState extends State<destacadoApp> {
           onPressed: () {
             personajeRandom();
           }, 
-          label: Text("Personaje Aleatorio"),
+          label: const Text("Personaje Aleatorio"),
       ),
       );
   }

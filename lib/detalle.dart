@@ -36,7 +36,7 @@ class _detalleAppState extends State<detalleApp> {
     generoPersonaje = "";
     siNo = true;
     personajeSiguiente();
-    texto = const Text("0");
+    texto = const Text("");
     super.initState();
   }
 
@@ -92,46 +92,67 @@ class _detalleAppState extends State<detalleApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        centerTitle: true,
+        title: const Text("Información de personaje",
+        style: TextStyle(
+          color: Colors.white
+        )),
+      ),
       body: Column(
         children: [
-          Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 300, bottom: 100),
-                child: texto,
-              ),
+          Row(
+            children: [
+              texto
+            ],
           ),
-          Padding(padding: const EdgeInsets.only(bottom: 20),
-          child: FloatingActionButton(
-          onPressed: () {
-            siNo = true;
-            if (siNo) {
-              personajeSiguiente();
-            }
-          },
-          child: const Icon(Icons.arrow_forward_sharp),
+          Padding(padding: const EdgeInsets.all(20),
+          child: Row (
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(padding: const EdgeInsets.only(right: 10),
+            child: FloatingActionButton(
+                onPressed: () {
+                  siNo = true;
+                  if (siNo) {
+                    personajeSiguiente();
+                  }
+                },
+                child: const Icon(Icons.arrow_forward_sharp),
+              ),
+            ),
+              FloatingActionButton(onPressed: () {
+                siNo = false;
+                if (!siNo) {
+                  personajeSiguiente();
+                } 
+              },
+              child: const Icon(Icons.arrow_back_sharp),
+              ),
+            ],
+          ),
         ),
-        ),
-        FloatingActionButton(onPressed: () {
-          siNo = false;
-          if (!siNo) {
-            personajeSiguiente();
-          } 
-        },
-        child: const Icon(Icons.arrow_back_sharp),
-        ),
-        FloatingActionButton(onPressed: () {
-          if (index == 0) {
-            Listafavoritos.personajesFavoritos.add(nombrePersonaje);
-          } else {
-            Listafavoritos.personajesFavoritos.remove(nombrePersonaje);
-          }
-            setState(() {
-            index = (index + 1) % customizations.length;
-          });
-        },
-        foregroundColor: customizations[index].$1,
-        child: const Icon(Icons.favorite),
-        ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              FloatingActionButton(onPressed: () {
+                if (index == 0) {
+                  Listafavoritos.personajesFavoritos.add(nombrePersonaje);
+                } else {
+                  Listafavoritos.personajesFavoritos.remove(nombrePersonaje);
+                }
+                  setState(() {
+                  index = (index + 1) % customizations.length;
+                });
+              },
+              foregroundColor: customizations[index].$1,
+              child: const Icon(Icons.favorite),
+              ),
+            ],
+          ),
         ],
       ),
     );

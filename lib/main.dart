@@ -59,6 +59,7 @@ class _BottomNavigationBarExampleState extends State<BottomNavigationBarExample>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),

@@ -37,69 +37,73 @@ class _listadoAppState extends State<listadoApp> {
       counter--;
     } 
       personajes = [];
-      while (counterPersonaje <= 10)
-      {
-        final url = Uri.parse("https://www.anapioficeandfire.com/api/characters?page=$counter&pageSize=11");
-        final response = await http.get(url);
-        
-        if (response.statusCode == 200) {
-          final json = response.body;
-          personajesMap = List<Map<String, dynamic>>.from(jsonDecode(json));
 
-          personajes.add(personajesMap[counterPersonaje]["name"]); 
+        for (counterPersonaje = 0; counterPersonaje <= 10; counterPersonaje++) {
+          final url = Uri.parse("https://www.anapioficeandfire.com/api/characters?page=$counter&pageSize=11");
+          final response = await http.get(url);
+          
+          if (response.statusCode == 200) {
+            final json = response.body;
+            personajesMap = List<Map<String, dynamic>>.from(jsonDecode(json));
+            
+            if (personajesMap[counterPersonaje]["name"] == "") {
+              personajes.add("Nombre desconocido");
+            } else {
+              personajes.add(personajesMap[counterPersonaje]["name"]); 
+            }
+            
+          }
+          else
+          {
+            print("Respuesta fallida");
+          }
         }
-        else
-        {
-          print("Respuesta fallida");
-        }
-        counterPersonaje++;
-      }
+        if (mounted) {   
         setState(() {});
-      counterPersonaje = 0;
+      }
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
 
 @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          Padding(padding: 
-          const EdgeInsets.only(right: 500),
-          child: FloatingActionButton(
-              onPressed: () {
-                listadoPersonajes(true);
-              },
-              child: const Icon(Icons.arrow_forward_ios_sharp),
-            ),
-          ),
-          Padding(padding: 
-          const EdgeInsets.only(right: 300
-          ),
-          child: FloatingActionButton(onPressed: () {
-            listadoPersonajes(false);
-          } ,
-          child: const Icon(Icons.arrow_back_ios_new_rounded),
-          ),
-          ),
-        ],
+        backgroundColor: Colors.black,
+        centerTitle: true,
+        title: const Text("Listado Personajes",
+      style: TextStyle(
+        color: Colors.white,
+      ),),  
       ),
-      body: ListView.builder(
-      itemCount: personajes.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Text(
-          personajes[index],
-          style: const TextStyle(
-            fontSize: 20,
-          ),
-        );
-                },  
-                ),
+      body: Column(
+        children: [
+          Expanded(child: 
+          ListView.builder(
+            itemCount: personajes.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(personajes[index]),
+                splashColor: Colors.amber,
+              );
+            },
+        ),
+      ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            ElevatedButton(onPressed: (){
+              listadoPersonajes(true);
+            }, child: const Text("Siguiente página")),
+            ElevatedButton(onPressed: (){
+              listadoPersonajes(false);
+              
+            }, child: const Text("Anterior página")),
+
+          ],
+        )
+        ],
+      ) 
       );
   }
 }
