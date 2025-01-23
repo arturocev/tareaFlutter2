@@ -39,11 +39,15 @@ class _destacadoAppState extends State<destacadoApp> {
       personajeTexto = "${personaje.name}: ${personaje.gender}";
       if (personaje.gender == "Male") 
       {
-        icono = const Icon(Icons.male);
+        icono = const Icon(Icons.male,
+      color: Color.fromARGB(255, 94, 141, 179),
+    size: 50,);
       }
       else
       {
-        icono = const Icon(Icons.female);
+        icono = const Icon(Icons.female,
+      color: Color.fromARGB(255, 230, 106, 147),
+    size: 50,);
       }
     }
     else
@@ -58,28 +62,48 @@ class _destacadoAppState extends State<destacadoApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Center(
-            child: 
-          Padding(
-          padding: const EdgeInsets.only(top: 300),
-          child: personajeTexto.isEmpty ? 
-          const CircularProgressIndicator(): 
-          Text(
-          personajeTexto,
-          style: const TextStyle
-          ( 
-            fontSize: 17.0,
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          "Personaje Aleatorio",
+          style: TextStyle(
+            color: Colors.white,
           ),
-        ),
-        ),
-          ),
-        personajeTexto.isEmpty ?
-        const CircularProgressIndicator(): icono
-        ],
+          
       ),
-    );
+        backgroundColor: Colors.black,
+      ),
+      body:
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [ 
+              Row(mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+            personajeTexto.isEmpty ?
+            const CircularProgressIndicator(): 
+            icono,
+              Text(
+                personajeTexto,
+                style: const TextStyle
+                ( 
+                  fontSize: 20.0,
+                  fontFamily: "verdana",
+                ), 
+                textAlign: TextAlign.center,
+              ),
+              
+            ],
+            ),
+            ],
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            personajeRandom();
+          }, 
+          label: Text("Personaje Aleatorio"),
+      ),
+      );
   }
 }
 

@@ -34,7 +34,7 @@ class _detalleAppState extends State<detalleApp> {
     idPersonaje = 1;
     nombrePersonaje = "";
     generoPersonaje = "";
-    siNo = false;
+    siNo = true;
     personajeSiguiente();
     texto = const Text("0");
     super.initState();
@@ -60,6 +60,11 @@ class _detalleAppState extends State<detalleApp> {
 
   void personajeSiguiente() async
   {
+    if (siNo == true) {
+      idPersonaje++;
+    } else {
+      idPersonaje--;
+    }
     final url = Uri.parse("https://www.anapioficeandfire.com/api/characters/$idPersonaje");
     final response = await http.get(url);
 
@@ -76,11 +81,7 @@ class _detalleAppState extends State<detalleApp> {
         nombrePersonaje = personaje.name;
       }
     }
-    if (siNo == true) {
-      idPersonaje++;
-    } else {
-      idPersonaje--;
-    }
+    
     esFavorito();
     texto = Text("$nombrePersonaje: $generoPersonaje");
     if (mounted) {
@@ -103,14 +104,18 @@ class _detalleAppState extends State<detalleApp> {
           child: FloatingActionButton(
           onPressed: () {
             siNo = true;
-            personajeSiguiente();
+            if (siNo) {
+              personajeSiguiente();
+            }
           },
           child: const Icon(Icons.arrow_forward_sharp),
         ),
         ),
         FloatingActionButton(onPressed: () {
           siNo = false;
-          personajeSiguiente();
+          if (!siNo) {
+            personajeSiguiente();
+          } 
         },
         child: const Icon(Icons.arrow_back_sharp),
         ),
