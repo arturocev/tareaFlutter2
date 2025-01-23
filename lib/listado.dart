@@ -54,9 +54,7 @@ class _listadoAppState extends State<listadoApp> {
         }
         counterPersonaje++;
       }
-      if (mounted) {
         setState(() {});
-      }
       counterPersonaje = 0;
   }
 
@@ -91,19 +89,17 @@ class _listadoAppState extends State<listadoApp> {
           ),
         ],
       ),
-      body: Center(
-            child: ListView.builder(
-            itemCount: personajes.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Text(
-                personajes[index],
-                style: const TextStyle(
-                  fontSize: 20,
+      body: ListView.builder(
+      itemCount: personajes.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Text(
+          personajes[index],
+          style: const TextStyle(
+            fontSize: 20,
+          ),
+        );
+                },  
                 ),
-              );
-          },  
-          ),
-          ),
       );
   }
 }
