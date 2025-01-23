@@ -52,7 +52,10 @@ class _detalleAppState extends State<detalleApp> {
       }
     }
     siNo = false;
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
+
   }
 
   void personajeSiguiente() async
@@ -80,7 +83,9 @@ class _detalleAppState extends State<detalleApp> {
     }
     esFavorito();
     texto = Text("$nombrePersonaje: $generoPersonaje");
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -115,7 +120,7 @@ class _detalleAppState extends State<detalleApp> {
           } else {
             Listafavoritos.personajesFavoritos.remove(nombrePersonaje);
           }
-          setState(() {
+            setState(() {
             index = (index + 1) % customizations.length;
           });
         },

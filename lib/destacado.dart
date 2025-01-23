@@ -22,8 +22,8 @@ class _destacadoAppState extends State<destacadoApp> {
   @override
   void initState()
   {
-    personajeRandom();
     super.initState();
+    personajeRandom();
   }
   
   void personajeRandom() async
@@ -50,7 +50,9 @@ class _destacadoAppState extends State<destacadoApp> {
     {
       personajeTexto = "Error al cargar el personaje";
     }
-    setState(() {}); 
+    if (mounted) {
+      setState(() {}); 
+    }
   }
 
   @override

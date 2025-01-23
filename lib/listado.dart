@@ -19,14 +19,15 @@ class _listadoAppState extends State<listadoApp> {
   @override
   void initState()
   {
+    super.initState();
     personajes = [];
     personajesMap = [];
     counter = 1;
     counterPersonaje = 0;
     listadoPersonajes(true);
-    super.initState();
   }
 
+  
 
   void listadoPersonajes(bool siguiente) async {
     if (siguiente == true) {
@@ -53,9 +54,17 @@ class _listadoAppState extends State<listadoApp> {
         }
         counterPersonaje++;
       }
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
       counterPersonaje = 0;
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
 
 @override
   Widget build(BuildContext context) {
