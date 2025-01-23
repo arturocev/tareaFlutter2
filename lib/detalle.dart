@@ -19,6 +19,8 @@ class _detalleAppState extends State<detalleApp> {
   late int idPersonaje;
   late String nombrePersonaje;
   late String generoPersonaje;
+  late String culturaPersonaje;
+  late List<dynamic> aliases;
   late Text texto;
   late bool siNo;
 
@@ -33,6 +35,8 @@ class _detalleAppState extends State<detalleApp> {
   void initState() {
     idPersonaje = 1;
     nombrePersonaje = "";
+    culturaPersonaje = "";
+    aliases = [];
     generoPersonaje = "";
     siNo = true;
     personajeSiguiente();
@@ -73,17 +77,37 @@ class _detalleAppState extends State<detalleApp> {
       final json = response.body;
       Personaje personaje = Personaje.fromJson(jsonDecode(json));
       generoPersonaje = personaje.gender;
+
+      if (personaje.aliases[0] == "") {
+        aliases = ["Sin alias"];
+      } else {
+        aliases = [personaje.aliases[0]];
+      }
+
+      if (culturaPersonaje == "") {
+        culturaPersonaje = "Sin cultura";
+      } else {
+        culturaPersonaje = personaje.culture;
+      }
+
+      
       if (personaje.name.isEmpty) {
-         nombrePersonaje = "Personaje $idPersonaje";
+         nombrePersonaje = " Personaje $idPersonaje";
       }
       else
       {
-        nombrePersonaje = personaje.name;
+        nombrePersonaje = " " + personaje.name;
       }
     }
     
     esFavorito();
-    texto = Text("$nombrePersonaje: $generoPersonaje");
+    texto = Text(" Genero: $generoPersonaje \n Cultura: $culturaPersonaje \n Alias: $aliases",
+                style: const TextStyle(
+                  fontFamily: "Roboto",
+                  fontSize: 20,
+                  decorationStyle: TextDecorationStyle.dashed
+                ),
+              );
     if (mounted) {
       setState(() {});
     }
@@ -104,7 +128,17 @@ class _detalleAppState extends State<detalleApp> {
         children: [
           Row(
             children: [
-              texto
+              Text(nombrePersonaje,
+            style: const TextStyle(
+              fontSize: 50,
+              fontStyle: FontStyle.normal 
+            )
+          ),
+            ], 
+          ),
+          Row(
+            children: [
+              texto,
             ],
           ),
           Padding(padding: const EdgeInsets.all(20),
