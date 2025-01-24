@@ -47,7 +47,7 @@ class _listadoAppState extends State<listadoApp> {
             personajesMap = List<Map<String, dynamic>>.from(jsonDecode(json));
             
             if (personajesMap[counterPersonaje]["name"] == "") {
-              personajes.add("Nombre desconocido");
+              personajes.add(personajesMap[counterPersonaje]["aliases"][0]);
             } else {
               personajes.add(personajesMap[counterPersonaje]["name"]); 
             }
@@ -79,27 +79,41 @@ class _listadoAppState extends State<listadoApp> {
       body: Column(
         children: [
           Expanded(child: 
-          ListView.builder(
+           ListView.separated(
             itemCount: personajes.length,
             itemBuilder: (context, index) {
               return ListTile(
                 title: Text(personajes[index]),
-                splashColor: Colors.amber,
+                leading: Icon(Icons.person_4),
               );
-            },
+            }, separatorBuilder: (BuildContext context, int index) => const Divider(),
         ),
       ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            ElevatedButton(onPressed: (){
+            Padding(padding: EdgeInsets.all(8),
+            child: ElevatedButton(onPressed: (){
               listadoPersonajes(true);
-            }, child: const Text("Siguiente página")),
-            ElevatedButton(onPressed: (){
+            }, 
+            child: const Text("Siguiente página"),
+            style: ElevatedButton.styleFrom (
+              backgroundColor: Colors.black,
+              foregroundColor: Colors.white,
+            ),
+            ),
+            ),
+            Padding(padding: EdgeInsets.all(8),
+            child: ElevatedButton(onPressed: (){
               listadoPersonajes(false);
-              
-            }, child: const Text("Anterior página")),
-
+            }, 
+            child: const Text("Anterior página"),
+            style: ElevatedButton.styleFrom (
+              backgroundColor: Colors.black,
+              foregroundColor: Colors.white,
+            ),
+            ),
+            ),
           ],
         )
         ],

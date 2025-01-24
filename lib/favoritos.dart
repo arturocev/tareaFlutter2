@@ -17,17 +17,32 @@ class _favoritosAppState extends State<favoritosApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  ListView.builder(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        centerTitle: true,
+        title: const Text("Listado de personajes favoritos",
+        style: TextStyle(
+          color: Colors.white,
+        ),
+        ),
+      ),
+      body:  
+      Center (
+            child: Hero(tag: "Listado favoritos", 
+            child: ListView.separated(
             itemCount: Listafavoritos.personajesFavoritos.length,
             itemBuilder: (BuildContext context, int index) {
-              return Text(
-                Listafavoritos.personajesFavoritos[index],
-                style: const TextStyle(
-                  fontSize: 20,
-                ),
+              return Material(
+                  child: ListTile(
+                    title: Text(Listafavoritos.personajesFavoritos[index]),
+                    subtitle: Text(Listafavoritos.generosFavoritos[index]),
+                    leading: const Icon(Icons.person),
+                  ), 
               );
-          },  
-          ),
+          },  separatorBuilder: (BuildContext context, int index) => const Divider(),
+          ), 
+            ),
+      ),
     );
   }
 }

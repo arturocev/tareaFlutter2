@@ -20,7 +20,10 @@ class _detalleAppState extends State<detalleApp> {
   late String nombrePersonaje;
   late String generoPersonaje;
   late String culturaPersonaje;
+  late String fechaNacimiento;
+  late String fechaMuerte;
   late List<dynamic> aliases;
+  late List<dynamic> titles;
   late Text texto;
   late bool siNo;
 
@@ -37,6 +40,7 @@ class _detalleAppState extends State<detalleApp> {
     nombrePersonaje = "";
     culturaPersonaje = "";
     aliases = [];
+    titles = [];
     generoPersonaje = "";
     siNo = true;
     personajeSiguiente();
@@ -78,13 +82,21 @@ class _detalleAppState extends State<detalleApp> {
       Personaje personaje = Personaje.fromJson(jsonDecode(json));
       generoPersonaje = personaje.gender;
 
-      if (personaje.aliases[0] == "") {
+      if (personaje.aliases.isEmpty) {
+        
         aliases = ["Sin alias"];
       } else {
         aliases = [personaje.aliases[0]];
       }
 
-      if (culturaPersonaje == "") {
+      if (personaje.titles.isEmpty) {
+        
+        titles = ["Sin título"];
+      } else {
+        titles = [personaje.titles[0]];
+      }
+
+      if (personaje.culture.isEmpty) {
         culturaPersonaje = "Sin cultura";
       } else {
         culturaPersonaje = personaje.culture;
@@ -92,20 +104,32 @@ class _detalleAppState extends State<detalleApp> {
 
       
       if (personaje.name.isEmpty) {
-         nombrePersonaje = " Personaje $idPersonaje";
+         nombrePersonaje = personaje.aliases[0];
       }
       else
       {
-        nombrePersonaje = " " + personaje.name;
+        nombrePersonaje = personaje.name;
+      }
+
+      if (personaje.born.isEmpty) {
+        fechaNacimiento = "Desconocida";
+      } else {
+        fechaNacimiento = personaje.born;
+      }
+
+      if (personaje.died.isEmpty) {
+        fechaMuerte = "Desconocida";
+      } else {
+        fechaMuerte = personaje.died;
       }
     }
     
     esFavorito();
-    texto = Text(" Genero: $generoPersonaje \n Cultura: $culturaPersonaje \n Alias: $aliases",
+    texto = Text(" Genero: $generoPersonaje \n Cultura: $culturaPersonaje \n Alias: ${aliases[0]} \n Fecha de nacimiento: $fechaNacimiento \n Fecha de muerte: $fechaMuerte \n Título: ${titles[0]}",
                 style: const TextStyle(
                   fontFamily: "Roboto",
                   fontSize: 20,
-                  decorationStyle: TextDecorationStyle.dashed
+                  decorationStyle: TextDecorationStyle.dashed,
                 ),
               );
     if (mounted) {
@@ -175,8 +199,10 @@ class _detalleAppState extends State<detalleApp> {
               FloatingActionButton(onPressed: () {
                 if (index == 0) {
                   Listafavoritos.personajesFavoritos.add(nombrePersonaje);
+                  Listafavoritos.generosFavoritos.add(generoPersonaje);
                 } else {
                   Listafavoritos.personajesFavoritos.remove(nombrePersonaje);
+                  Listafavoritos.generosFavoritos.remove(generoPersonaje);
                 }
                   setState(() {
                   index = (index + 1) % customizations.length;
