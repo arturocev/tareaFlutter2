@@ -132,12 +132,11 @@ class _detalleAppState extends State<detalleApp> {
         fechaMuerte = personaje.died;
       }
     }
-    
     esFavorito();
     texto = Text(" Genero: $generoPersonaje \n Cultura: $culturaPersonaje \n Alias: ${aliases[0]} \n Fecha de nacimiento: $fechaNacimiento \n Fecha de muerte: $fechaMuerte \n Título: ${titles[0]}",
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: "Roboto",
-                  fontSize: 20,
+                  fontSize: MediaQuery.of(context).size.width > 600 ? 20.0 : 16.0,
                   decorationStyle: TextDecorationStyle.dashed,
                 ),
               );
@@ -149,6 +148,8 @@ class _detalleAppState extends State<detalleApp> {
 // Define la interfaz de usuario con Appbar, texto y botones
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    var titleFontSize = screenSize.width > 600 ? 50.0 : 30.0;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -163,10 +164,10 @@ class _detalleAppState extends State<detalleApp> {
           Row(
             children: [
               Text(nombrePersonaje,
-            style: const TextStyle(
-              fontSize: 50,
-              fontStyle: FontStyle.normal 
-            )
+            style: TextStyle(
+              fontSize: titleFontSize,
+              fontStyle: FontStyle.normal,
+            ),
           ),
             ], 
           ),
