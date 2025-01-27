@@ -11,11 +11,15 @@ class listadoApp extends StatefulWidget {
 
 class _listadoAppState extends State<listadoApp> {
 
+
+  // --------------------------------------------------- VARIABLES ESTADO -----------------------------------
   late List<String> personajes;
   late int counter;
   late List<Map<String,dynamic>> personajesMap;
   late int counterPersonaje;
 
+
+  // Inicializa las variables estado y llama a "listadoPersonajes" para obtener la primera página de los personajes
   @override
   void initState()
   {
@@ -29,6 +33,7 @@ class _listadoAppState extends State<listadoApp> {
 
   
 
+  // Realiza una solicitud HTTP a la API para obtener una lista de personajes actualiza el array "personajes" y llama a setState para actualizar la interfaz
   void listadoPersonajes(bool siguiente) async {
     if (siguiente == true) {
       counter++;
@@ -64,6 +69,7 @@ class _listadoAppState extends State<listadoApp> {
   }
 
 
+ // Construye la interfaz del usuario, incluyendo una barra de aplicaciones, una lista de personajes y botones para navegar entre páginas
 
 @override
   Widget build(BuildContext context) {

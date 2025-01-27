@@ -16,6 +16,7 @@ class detalleApp extends StatefulWidget {
 
 class _detalleAppState extends State<detalleApp> {
 
+  // --------------------------------------------- VARIABLES DE ESTADO -------------------------------------------------
   late int idPersonaje;
   late String nombrePersonaje;
   late String generoPersonaje;
@@ -27,12 +28,16 @@ class _detalleAppState extends State<detalleApp> {
   late Text texto;
   late bool siNo;
 
+  // La variable customizations es una lista que contiene personalizaciones para el color y la forma. index se utiliza para la personalización actual
+
   static const List<(Color?, Color? background, ShapeBorder?)> customizations =
       <(Color?, Color?, ShapeBorder?)>[
     (null, null, null),
     (Colors.red, null, null),
   ];
   int index = 0; 
+
+ // El método initState inicializa las variables de estado y llama al método "personajeSiguiente" para obtener el primer personaje.
 
   @override
   void initState() {
@@ -47,6 +52,8 @@ class _detalleAppState extends State<detalleApp> {
     texto = const Text("");
     super.initState();
   }
+
+  // Este método verifica si el personaje actual está en la lista de favoritos y actualiza las variables "siNo" e "index". 
 
   void esFavorito() {
     siNo = false;
@@ -65,6 +72,8 @@ class _detalleAppState extends State<detalleApp> {
     }
 
   }
+
+  // Este método obtiene el siguiente personaje de la API y actualiza las variables de estado con la información obtenida. Luego, llama a "esFavorito" y actualiza el Widget con setState 
 
   void personajeSiguiente() async
   {
@@ -137,6 +146,7 @@ class _detalleAppState extends State<detalleApp> {
     }
   }
 
+// Define la interfaz de usuario con Appbar, texto y botones
   @override
   Widget build(BuildContext context) {
     return Scaffold(
