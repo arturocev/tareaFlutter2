@@ -1,3 +1,4 @@
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -5,19 +6,18 @@ import 'package:http/http.dart' as http;
 import 'package:tarea_flutter/listaFavoritos.dart';
 import 'package:tarea_flutter/personaje.dart';
 
-class detalleApp extends StatefulWidget {
-  const detalleApp({super.key});
+class DetalleApp extends StatefulWidget {
+  const DetalleApp({super.key});
 
   @override
-  State<detalleApp> createState() => _detalleAppState();
+  State<DetalleApp> createState() => _detalleAppState();
 }
 
 
 
-class _detalleAppState extends State<detalleApp> {
+class _detalleAppState extends State<DetalleApp> {
 
   // --------------------------------------------- VARIABLES DE ESTADO -------------------------------------------------
-  late int idPersonaje;
   late String nombrePersonaje;
   late String generoPersonaje;
   late String culturaPersonaje;
@@ -27,6 +27,7 @@ class _detalleAppState extends State<detalleApp> {
   late List<dynamic> titles;
   late Text texto;
   late bool siNo;
+  late bool actual;
 
   // La variable customizations es una lista que contiene personalizaciones para el color y la forma. index se utiliza para la personalización actual
 
@@ -41,13 +42,13 @@ class _detalleAppState extends State<detalleApp> {
 
   @override
   void initState() {
-    idPersonaje = 1;
     nombrePersonaje = "";
     culturaPersonaje = "";
     aliases = [];
     titles = [];
     generoPersonaje = "";
     siNo = true;
+    actual = true;
     personajeSiguiente();
     texto = const Text("");
     super.initState();
@@ -77,12 +78,12 @@ class _detalleAppState extends State<detalleApp> {
 
   void personajeSiguiente() async
   {
-    if (siNo == true) {
-      idPersonaje++;
-    } else {
-      idPersonaje--;
+    if (siNo == true && actual == false) {
+      Personaje.idPersonaje++;
+    } else if (siNo == false && actual == false) {
+      Personaje.idPersonaje--;
     }
-    final url = Uri.parse("https://www.anapioficeandfire.com/api/characters/$idPersonaje");
+    final url = Uri.parse("https://www.anapioficeandfire.com/api/characters/${Personaje.idPersonaje}");
     final response = await http.get(url);
 
     if (response.statusCode == 200) 
@@ -140,6 +141,7 @@ class _detalleAppState extends State<detalleApp> {
                   decorationStyle: TextDecorationStyle.dashed,
                 ),
               );
+    actual = false;
     if (mounted) {
       setState(() {});
     }

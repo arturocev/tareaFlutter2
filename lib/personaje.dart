@@ -7,6 +7,7 @@ class Personaje
   final String born;
   final String died;
   final List<dynamic> titles;
+  static int idPersonaje = 1;
 
   const Personaje({required this.name, required this.gender, required this.culture, required this.aliases, required this.born, required this.died, required this.titles});
 

@@ -33,20 +33,13 @@ class BottomNavigationBarExample extends StatefulWidget
 class _BottomNavigationBarExampleState extends State<BottomNavigationBarExample> 
 {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>
+  static List<Widget> _widgetOptions = <Widget>
   [
-    MaterialApp(
-      home: destacadoApp(),
-    ),
-    MaterialApp(
-      home: listadoApp(),
-    ),
-    MaterialApp(
-      home: detalleApp(),
-    ),
-    MaterialApp(
-      home: favoritosApp(),
-    )
+      destacadoApp(),
+      listadoApp(selectedIndex: 0),
+      DetalleApp(),
+      favoritosApp(),
+
   ];
 
   void _onItemTapped(int index) 
