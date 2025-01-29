@@ -8,6 +8,10 @@ class Personaje
   final String died;
   final List<dynamic> titles;
   static int idPersonaje = 1;
+  static List<String> personajes = [];
+  static List<Map<String,dynamic>> personajesMap = [];
+  static int counterPersonaje = 0;
+  static int indicePersonaje = 0;
 
   const Personaje({required this.name, required this.gender, required this.culture, required this.aliases, required this.born, required this.died, required this.titles});
 

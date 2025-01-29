@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tarea_flutter/destacado.dart';
-import 'package:tarea_flutter/detalle.dart';
 import 'package:tarea_flutter/favoritos.dart';
 import 'package:tarea_flutter/listado.dart';
 
@@ -37,7 +36,6 @@ class _BottomNavigationBarExampleState extends State<BottomNavigationBarExample>
   [
       destacadoApp(),
       listadoApp(selectedIndex: 0),
-      DetalleApp(),
       favoritosApp(),
 
   ];
@@ -69,18 +67,13 @@ class _BottomNavigationBarExampleState extends State<BottomNavigationBarExample>
             backgroundColor:  Color.fromARGB(255, 0, 0, 0),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.details),
-            label: 'Detalle',
-            backgroundColor:  Color.fromARGB(255, 0, 0, 0),
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
             label: 'Favoritos',
             backgroundColor:  Color.fromARGB(255, 0, 0, 0),
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromARGB(255, 255, 255, 255),
+        selectedItemColor: Color.fromARGB(255, 0, 0, 0),
         onTap: _onItemTapped,
       ),
     );

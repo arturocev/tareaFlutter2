@@ -95,14 +95,16 @@ class _destacadoAppState extends State<destacadoApp> {
               
             ],
             ),
-            ],
-        ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            personajeRandom();
-          }, 
-          label: const Text("Personaje Aleatorio"),
-      ),
+                FloatingActionButton.extended(
+                onPressed: () {
+                    personajeRandom();
+                  }, 
+                  label: const Text("Personaje Aleatorio"),
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white,
+                ),
+              ],
+            ),
       );
   }
 }
