@@ -65,7 +65,7 @@ class _destacadoAppState extends State<destacadoApp> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          "Personaje Aleatorio",
+          "Personaje destacado",
           style: TextStyle(
             color: Colors.white,
           ),
@@ -85,9 +85,9 @@ class _destacadoAppState extends State<destacadoApp> {
             icono,
               Text(
                 personajeTexto,
-                style: const TextStyle
+                style: TextStyle
                 ( 
-                  fontSize: 20.0,
+                  fontSize: MediaQuery.of(context).size.width > 600 ? 20.0 : 16.0,
                   fontFamily: "verdana",
                 ), 
                 textAlign: TextAlign.center,
@@ -99,7 +99,7 @@ class _destacadoAppState extends State<destacadoApp> {
                 onPressed: () {
                     personajeRandom();
                   }, 
-                  label: const Text("Personaje Aleatorio"),
+                  label: const Text("Cargar otro Personaje"),
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
                 ),
